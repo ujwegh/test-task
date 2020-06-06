@@ -3,6 +3,10 @@ package ru.nik.testtask;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import ru.nik.testtask.config.CommonDbContainer;
 import ru.nik.testtask.model.Car;
 import ru.nik.testtask.model.CarType;
 import ru.nik.testtask.model.Human;
@@ -16,6 +20,8 @@ import java.util.Arrays;
  * @author nik_aleks
  * @version 1.0
  */
+
+@Testcontainers
 @Transactional
 @SpringBootTest
 public class AbstractTest {
@@ -25,6 +31,9 @@ public class AbstractTest {
 
     @Autowired
     private CarRepository carRepository;
+
+    @Container
+    public static PostgreSQLContainer postgreSQLContainer = CommonDbContainer.getInstance();
 
     @BeforeEach
     void init() {
